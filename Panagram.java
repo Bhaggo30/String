@@ -1,30 +1,41 @@
-import java.util.Locale;
 import java.util.Scanner;
+
 public class Panagram {
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("enter the sentence");
-        String str1 = sc.nextLine();
-        boolean rs = isPanagram(str1);
-        if (rs) {
-            System.out.println("given string is panagram ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the sentence:");
+        String inputString = scanner.nextLine();
+        boolean isPanagram = checkPanagram(inputString);
+
+        if (isPanagram) {
+            System.out.println("The given string is a panagram.");
         } else {
-            System.out.println("given string is not a pranagraam ");
+            System.out.println("The given string is not a panagram.");
         }
     }
 
-    static  boolean isPanagram(String str) {
+    static boolean checkPanagram(String str) {
         if (str.length() < 26) {
             return false;
         }
-        int[] count = new int[26];
+
+        int[] letterCount = new int[26];
+
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             if (ch >= 'A' && ch <= 'Z') {
-                count[ch - 65]++;
+                letterCount[ch - 65]++;
+            } else if (ch >= 'a' && ch <= 'z') {
+                letterCount[ch - 97]++;
             }
-
         }
+        for (int count : letterCount) {
+            if (count == 0) {
+                return false;
+            }
+        }
+
         return true;
     }
 }
